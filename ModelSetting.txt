@@ -1,0 +1,33 @@
+% MATLAB -version for ETASI Model
+% X.A.Yu (2026/06/23)
+% =========================================================================
+% The approach is based on the simple assumption that an earthquake of
+% magnitude m can not be properly distinguished and thus becomes not
+% detectable by the seismogram analysis if it occurs less than a blind time
+% T, after an event of equal or larger magnitude (Hainzl, 2016a; Lippiello
+% et al., 2016)
+% =========================================================================
+% Based on this, Hainzl (2016b) derived the functional form
+% of the apparent seismicity rate R and magnitude distribution F for the
+% recorded, incomplete catalog data. In particular, R and F depend on the
+% true underlying rate R0 at time t and the time-invariant, true magnitude
+% distribution F0
+%               R(t) = (1/Tb) * (1 - exp(-Tb*R0(t))),
+% where:
+% R0(t): true ETAS rate
+% R(t) : apparent observed ETASI rate
+% Tb   : blind time
+% =========================================================================
+% And the magnitude distribution should be rectified as:
+% f(m,t) = beta * N0(t) * exp(-beta*m0) * exp(-N0(t)*exp(-beta*m0)) ...
+%          / (1 - exp(-N0(t))),
+% where: N0(t) ≈ Tb * R0(t)
+% In this case, the optimization of the b-value and the ETAS parameters 
+% cannot be separated. In addition to the standard parameters 
+% (b, u, K, a, c, p), the likelihood function value depends on the blind 
+% time Tb
+% Therefore, the MLE involves 7 instead of 6 free parameters
+% =========================================================================
+% The target log-likelihood function is: 
+% logL = sum_i log(f(mi,ti)) + sum_i log(R(ti)) - int R(t) dt
+% =========================================================================

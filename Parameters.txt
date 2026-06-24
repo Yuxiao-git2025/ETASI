@@ -1,0 +1,171 @@
+% =========================================================================
+% Result output description
+% =========================================================================
+%
+% Result.time:
+%   Original sorted event times.
+%
+% Result.time0:
+%   Event times shifted so that the first event time is zero.
+%
+% Result.mag:
+%   Original event magnitudes.
+%
+% Result.mag0:
+%   Relative magnitudes:
+%       mag0 = mag - Mmin.
+%
+% Result.Mmin:
+%   Completeness magnitude Mc.
+%
+% Result.theta0:
+%   Initial ETASI parameter vector:
+%       [A, c, p, alpha, mu, b, Tb].
+%
+% Result.theta:
+%   Final fitted ETASI parameter vector:
+%       [A, c, p, alpha, mu, b, Tb].
+%
+% Result.A:
+%   Productivity coefficient of the underlying true ETAS model.
+%
+% Result.c:
+%   Omori-Utsu time offset.
+%
+% Result.p:
+%   Omori-Utsu temporal decay exponent.
+%
+% Result.alpha:
+%   Magnitude productivity scaling parameter.
+%
+% Result.mu:
+%   Background seismicity rate of the underlying true ETAS model.
+%
+% Result.b:
+%   Gutenberg-Richter b-value.
+%
+% Result.Tb:
+%   Blind time controlling short-term incompleteness.
+%
+% Result.negLogL:
+%   Final negative log-likelihood minimized by the optimizer.
+%
+% Result.logL:
+%   Final log-likelihood:
+%       logL = -negLogL.
+%
+% Result.AIC:
+%   Akaike information criterion:
+%       AIC = 2*k - 2*logL,
+%   where k = 7.
+%
+% Result.branching_ratio:
+%   Branching ratio of the underlying classic ETAS process.
+%
+% Result.event:
+%   Model quantities evaluated at event times.
+%
+% Result.grid:
+%   Model quantities evaluated on a regular plotting grid.
+%
+% Result.TransN:
+%   Transformed event times based on the time-rescaling theorem.
+%
+% Result.NumEvents:
+%   Cumulative event numbers:
+%       [1; 2; ...; N].
+
+
+% =========================================================================
+% Result.event structure
+% =========================================================================
+%
+% Result.event.time:
+%   Event times after shifting the first time to zero.
+%
+% Result.event.mag0:
+%   Relative magnitudes:
+%       mag0 = mag - Mmin.
+%
+% Result.event.R0:
+%   True underlying ETAS rate at event times:
+%       R0(ti) = mu + triggering(ti).
+%
+% Result.event.R:
+%   Apparent ETASI observed rate at event times:
+%       R(ti) = (1/Tb)*(1 - exp(-Tb*R0(ti))).
+%
+% Result.event.lambda_true:
+%   Same as Result.event.R0.
+%
+% Result.event.lambda_observed:
+%   Same as Result.event.R.
+%
+% Result.event.mu:
+%   Background rate at event times.
+%   In this stationary ETASI version, this is constant.
+%
+% Result.event.trig:
+%   Triggering contribution at event times:
+%       trig(ti) = R0(ti) - mu.
+%
+% Result.event.N0:
+%   Expected number of true events during the blind time:
+%       N0(ti) = Tb * R0(ti).
+%
+% Result.event.beta:
+%   beta value of the Gutenberg-Richter distribution:
+%       beta = b*log(10).
+%
+% Result.event.f0_GR:
+%   Standard Gutenberg-Richter probability density at event magnitudes.
+%
+% Result.event.f_ETASI:
+%   Apparent ETASI magnitude density at event times.
+%
+% Result.event.detection_rate_ratio:
+%   Ratio between apparent observed rate and true ETAS rate:
+%       R(ti) / R0(ti).
+%
+%   Values close to 1 indicate weak incompleteness.
+%   Values much smaller than 1 indicate strong short-term incompleteness.
+%
+% Result.event.logRate:
+%   log(R(ti)).
+%
+% Result.event.logMagDensity:
+%   log(f(mi,ti)).
+
+
+% =========================================================================
+% Result.grid structure
+% =========================================================================
+%
+% Result.grid.time:
+%   Regular time grid for plotting.
+%
+% Result.grid.R0:
+%   True underlying ETAS rate on the grid.
+%
+% Result.grid.R:
+%   Apparent ETASI observed rate on the grid.
+%
+% Result.grid.lambda_true:
+%   Same as Result.grid.R0.
+%
+% Result.grid.lambda_observed:
+%   Same as Result.grid.R.
+%
+% Result.grid.mu:
+%   Background rate on the grid.
+%
+% Result.grid.trig:
+%   Triggering contribution on the grid.
+%
+% Result.grid.N0:
+%   Expected number of true events during the blind time:
+%       N0(t) = Tb * R0(t).
+%
+% Result.grid.detection_rate_ratio:
+%   Apparent-to-true rate ratio:
+%       R(t) / R0(t).
